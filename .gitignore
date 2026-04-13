@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# External packages / virtual environments
+venv/
+env/
+ENV/
+
+# Large model files (ignore the downloaded onnx model to stay within GitHub limits)
+models/arcface.onnx
+models/*.onnx
+
+# Application data & Datasets
+data/
+dataset/
+embeddings/
+
+# Environment files
+.env
+.env.local
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
+*.pptx
