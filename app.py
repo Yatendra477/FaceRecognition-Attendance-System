@@ -172,13 +172,18 @@ _init_state()
 # Helpers
 # ─────────────────────────────────────────────────────────────────────────────
 def check_model_available():
-    """Return (available: bool, message: str)."""
+    """Return (available: bool, message: str). Auto-downloads if missing."""
     model_path = os.path.join(BASE_DIR, "models", "arcface.onnx")
     if not os.path.exists(model_path):
-        return False, (
-            "❌ **ArcFace model not found.**  \n"
-            "Run `python download_model.py` in the project directory."
-        )
+        try:
+            import download_model
+            with st.spinner("Downloading ArcFace ONNX model (~166MB). Please wait..."):
+                try:
+                    download_model.download_direct_onnx()
+                except Exception:
+                    download_model.download_zip_and_extract()
+        except Exception as e:
+            return False, f"❌ **ArcFace model download failed.**  \nError: {e}"
     return True, ""
 
 
